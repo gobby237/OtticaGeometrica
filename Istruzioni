@@ -1,0 +1,24 @@
+*Sono nella cartella secondo anno* 
+// collego git 
+git clone *indirizzo repository senza gli apici* *nome del progetto in wsl*
+cd *nome progetto*
+
+// creo ambiente 
+conda create -n *nome env*
+conda activate *nome env*
+conda install numpy matplotlib ...
+
+// creo ambiente da copiare 
+conda env export > environment.yml
+
+...
+git push 
+
+
+Per collaboratori 
+-seguire i passaggi per collegare git e poi:
+
+git pull 
+
+conda env create -f environment.yml
+conda activate *nome env*
