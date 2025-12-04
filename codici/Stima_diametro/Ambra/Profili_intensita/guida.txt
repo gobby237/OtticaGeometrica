@@ -1,0 +1,2 @@
+In totale ci saranno 8 profili di intensità prelevati da ogni colore (5 immagini sovrapposte con funzione somma) e poi saranno prese in esame dal programma per ricavare la stima del diametro. 
+Ogni file contiene sulle x la misura (penso in pixel) e sulle y l'intensità luminosa. Vanno sostituite le "," con uno spazio con la funzione "sostituisci" di blocco note.
