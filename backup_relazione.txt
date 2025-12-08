@@ -53,7 +53,7 @@
 \section{Obiettivo}
 
 
-Stima/descrizione della distanza focale di una lente con pallino bianco e stima delle abberrazioni cromatiche, sferiche longitudinali e trasversali della lente n°13.
+Stima della distanza focale di una lente con pallino bianco e stima della focale, delle abberrazioni cromatiche, sferiche longitudinali e trasversali della lente n°13.
 
 \begin{enumerate}
     \item $f_{r,a,b}:$ distanza focale (rosso, ambra e blu); 
@@ -64,55 +64,74 @@ Stima/descrizione della distanza focale di una lente con pallino bianco e stima 
 
 \section{Apparato sperimentale }
 
-Per l'incertezza di misura, si assume distribuzione di probabilità uniforme nella più piccola tacca di lettura della guida, che si è considerata 0.5 mm. 
+Di seguito uno schema generale dell'apparato sperimentale, e del metodo utilizzato per la stima degli errori sistematici.
 
-*INSERIRE SCHEMA COMPLETO E UNO SCHEMA PER CIASCUNA LENTE*
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=1\linewidth]{Schema_generale.png}
+    \caption{Schema apparato sperimentale}
+    \label{fig:placeholder}
+\end{figure}
 
-\begin{equation}
-    \sigma=\frac{ptl}{2\sqrt{3}}=0.1 mm
-\end{equation}
+Di seguito una tabella esaustiva con tutte le grandezze e le relative incertezze 
 
-\begin{table}[h!]
+\begin{table}[H]
     \centering
     \caption{\textbf{Misurazioni Apparato}}
-    \small % Riduce leggermente il font per adattare il contenuto
-    \renewcommand{\arraystretch}{1.3} % Aumenta la spaziatura tra le righe
-    \begin{tabular}{| p{5.5cm} | l | c | c | p{4cm} |} % Aggiunte le barre verticali (|)
-        \hline % Linea orizzontale superiore
-        \textbf{Descrizione} & \textbf{Simbolo} & \textbf{Val. [mm]} & \textbf{Inc. [mm]} & \textbf{Note} \\
-        \hline \hline % Doppia linea per separare l'intestazione
-        Lunghezza sbarretta in plexiglass & $L$ & 81.5 & 0.1 & Incertezza di misura  \\
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{| p{7.2cm} | c | c | c |}
         \hline
-        Spessore carrellino (tutti uguali) & $s_c$ & 25.4 & 0.1 & Incertezza di misura \\
+        \textbf{Descrizione} & \textbf{Simbolo} & \textbf{Val. [mm]} & \textbf{Inc. [mm]} \\
+        \hline\hline
+
+        Lunghezza sbarretta in plexiglass & $l_p$ & 81.5 & 0.1 \\
         \hline
-        Spessore schermo bianco & $s_s$ & 3 & 0.1 & fornito dal personale \\
+        Spessore carrellino (tutti uguali) & $s_c$ & 25.4 & 0.1 \\
         \hline
-        Distanza fine carrellino schermo e inizio carrellino lente & $d'$ & 57.5 & 0.1 & Incertezza di misura \\
+        Spessore schermo bianco & $s_s$ & 3.0 & 0.1 \\
         \hline
-        Distanza inizio carrellino e vertice sx lente bianca & $s_v = L - d' - \frac{s_c}{2} + \frac{s_s}{2}$ & 12.8 & 0.2 & Propagazione errori (somma in quadratura) \\
+        Distanza fine carrellino schermo e inizio carrellino lente & $d'$ & 57.5 & 0.1 \\
         \hline
-        Distanza vertice dx lente e fine carrellino & $s_v' = s_c - VV' - s_v$ & 5.4 & 0.2 & Propagazione errori \\
+        Distanza inizio carrellino e vertice sx lente bianca &
+        $d_{V} = L - d' - \frac{s_c}{2} + \frac{s_s}{2}$ & 12.8 & 0.2 \\
         \hline
-        Distanza tra due vertici bombati lente bianca & $VV'$ & 7.2 & 0.1 & Fornito dal personale \\
+        Distanza vertice dx lente e fine carrellino &
+        $d_{V'} = s_c - VV' - s_v$ & 5.4 & 0.2 \\
         \hline
-        Distanza lente spessa  & $\pi \pi' = VV'/3$ & 2.40 & 0.06 & $\sigma_{VV'/3} = \sigma_{VV'}/\sqrt{3}$ \\
+        Distanza tra due vertici bombati lente bianca &
+        $VV'$ & 7.2 & 0.1 \\
         \hline
-        Distanza tra sensore CCD e inizio carrellino sensore & $s_{ccd}= \frac{sc}{2}$ + 3mm & 15.7 & 0.2 & propagazione errori (somma in quadratura)\\
+        Distanza lente spessa &
+        $\pi\pi' = \frac{VV'}{3}$ & 2.40 & 0.06 \\
         \hline
-        Distanza da scocca CCD a sensore camera & $s''_{ccd}$ & 9 & 0.1 & Fornito dal personale \\
+        Distanza tra sensore CCD - inizio carrellino sensore &
+        $d_{\text{ccd}} = \frac{s_c}{2} + d_{sensore}$ & 15.7 & 0.2 \\
         \hline
-        Sporgenza bacchetta (maschera corretta) & $d_{nuovo}$ & 20 & 0.1 & Incertezza di misura \\
+        Distanza tra asse CCD - sensore interno &
+        $d_{sensore}$ & 3.0 & 0.1 \\
         \hline
-        Distanza maschera (ogg) e inizio guida: pos. sbagliata & $s_{m,vecchio}$ & 54.3 & 0.2 & Propagazione errori \\
+        Distanza inizio guida – inizio carrellino schermo (maschera corretta) &
+        $d_{new}$ & 20.0 & 0.1 \\
         \hline
-        Distanza maschera (ogg) e inizio guida: pos. corretta & $s_{m,nuovo}$ & 50.3 & 0.2 & Propagazione errori \\
+        Distanza maschera – inizio guida &
+        $d_{m} = L - d - \frac{s_c}{2} + \frac{s_s}{2}$ & 53.4 & 0.30 \\
         \hline
-        Stima distanza corretta (maschera inversa) & $s_{m,vecchio\_corretto}$ & 53.4 & 0.30 & Propagazione degli errori \\
+        Distanza inizio guida – inizio carrellino schermo (maschera errata) &
+        $d$ & 16.9 & 0.30 \\
         \hline
-        Sporgenza bacchetta (maschera errata, calc. corretta) & $d_{vecchio\_corretto}$ & 16.9 & 0.3 & Propagazione degli errori \\
-        \hline
+
     \end{tabular}
 \end{table}
+
+Per l'incertezza di misura si assume una distribuzione di probabilità uniforme
+all'interno della più piccola tacca di lettura della guida, pari a \SI{0.5}{mm}.
+
+\[
+\sigma = \frac{\text{ptl}}{2\sqrt{3}} = \SI{0.1}{mm}
+\]
+
+Tutte le incertezze associate invece alle misure derivate sono state ricavate con le formule di propagazione degli errori. 
 
 \section{Quantificazione errori sistematici}
 
@@ -131,22 +150,15 @@ Si nota come i valori di q dipendano sia dai dati grezzi di p' e q', introducend
 Con riferimento alla tabella riportata precedentemente, si scrivono le espressioni complete degli errori sistematici $\Delta p$ e $\Delta q$:
 
 \begin{equation}
-    \Delta q = s_{v'} + s_{ccd} - s_c + \frac{VV'}{3}
+    \Delta q = d_{V'} + d_{ccd} - s_c + \frac{VV'}{3}
 \end{equation}
 
 \begin{equation}
-    \Delta p = s_{m, vecchio , corretto}+s_v+\frac{VV'}{3} 
-\end{equation}
-
-dove $s_{m,vecchio,corretto}$ è:
-
-\begin{equation}
-    s_{m,vecchio,corretto}= L-d_{vecchio,corretto}-\frac{s_c}{2}+\frac{s_s}{2}
+    \Delta p = d_{m}+d_{V}+\frac{VV'}{3} 
 \end{equation}
 
 
-
-Importante notare il contributo di $d_{vecchio,corretto}$: nel corso dell'esperimento si sono prese le misure con la maschera-oggetto con il foro in posizione arretrata rispetto alla fine del supporto, complicando la misura della distanza d tramite la sbarretta in plexiglass, avendo avuto limitato controllo sul corretto posizionamento della stessa. 
+Importante notare il contributo di $d$: nel corso dell'esperimento si sono prese le misure con la maschera-oggetto con il foro in posizione arretrata rispetto alla fine del supporto, complicando la misura della distanza $d$ tramite la sbarretta in plexiglass, avendo avuto limitato controllo sul corretto posizionamento della stessa. 
 Successivamente si è quindi raccolto un campione di misure di $p'$ con la maschera nelle due posizioni, dove $p'$ rappresenta la distanza tra l'inizio della guida e la lente posizionata a fuoco, avendo fissato la distanza tra la maschera e la camera. In questo modo si è potuto stimare l'offset tra le due posizioni per differenza tra i valori misurati. I valori non vengono corretti per gli errori sistematici, dato che sono misure della stessa grandezza, e gli errori sistematici si cancellerebbero a vicenda. 
 Si riporta di seguito la tabella con le misure grezze e i risultati trovati: 
 
@@ -180,7 +192,7 @@ Si riporta di seguito la tabella con le misure grezze e i risultati trovati:
 Si è potuto correggere quindi il contributo dovuto alla misura iniziale della maschera, sostituendo il valore ritenuto scorretto, con quello ricalcolato. Avendo misurato anche il valore di $d$ con la maschera in posizione avanzata, sottraendo da questo valore (che si è ritenuto più accurato per maggiore controllo sul posizionamento della sbarretta) l'offset appena stimato si è potuto risalire al valore più accurato della grandezza $d$:
 
 \begin{equation}
-    d_{vecchio,corretto}= d_{nuovo}-\Delta p' = (16.9 \pm 0.3)mm
+    d= d_{new}-\Delta p' = (16.9 \pm 0.3)mm
 \end{equation}
 
 con incertezza ottenuta tramite propagazione degli errori. 
@@ -199,7 +211,7 @@ Complessivamente, sommando tutti i contributi e ricavando l'incertezza tramite s
 
 Si è effettuata una stima della focale della lente con pallino bianco tramite due metodi differenti, le cui procedure e risultati vengono riportati di seguito: 
 
-\subsection{Metodo dei punti coniugati -> inserire quale colore abbiamo utilizzato BLU}
+\subsection{Metodo dei punti coniugati - Blu}
 
 Al fine di creare un campione $\{p_i,q_i\}_{i=1,...,25}$ si è partiti da una lunghezza fissata della camera e successivamente spostata con passo $2.5mm$ verso un'unica direzione, spostando di conseguenza la lente in modo che l'immagine sulla camera risultasse a fuoco. 
 
@@ -208,116 +220,51 @@ Si sono utilizzati inoltre tre metodi differenti per la stima della focale: camp
 \subsubsection{Campione di focali}
 Si riportano di seguito le tabelle di dati grezzi e corretti da errore sistematico, $p_i=p_i'+\Delta p$ e $q_i=q_i'-p_i'+\Delta q$:
 
-\begin{center}
-    \begin{minipage}{0.3\textwidth}
-        \centering
-        \captionof{table}{Dati grezzi}
-        \begin{tabular}{|c|c|}
-            \hline
-            $\mathbf{p'_i \, [mm]}$ & $\mathbf{q'_i \, [mm]}$ \\
-            \hline
-            355.0 & 585.0 \\
-            353.0 & 582.5 \\
-            349.5 & 580.0 \\
-            346.0 & 577.5 \\
-            342.0 & 575.0 \\
-            338.5 & 572.5 \\
-            334.5 & 570.0 \\
-            330.5 & 567.5 \\
-            327.5 & 565.0 \\
-            322.0 & 562.5 \\
-            319.5 & 560.0 \\
-            315.0 & 557.5 \\
-            312.0 & 555.0 \\
-            306.0 & 552.5 \\
-            303.5 & 550.0 \\
-            297.5 & 547.5 \\
-            294.5 & 545.0 \\
-            287.0 & 542.5 \\
-            283.5 & 540.0 \\
-            278.0 & 537.5 \\
-            273.0 & 535.0 \\
-            264.5 & 532.5 \\
-            259.5 & 530.0 \\
-            246.0 & 527.5 \\
-            237.5 & 525.0 \\
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.15}
+\setlength{\tabcolsep}{6pt}
 
-            \hline
-        \end{tabular}
-    \end{minipage}%
-    \hfill% Spazio tra le due minipage
-    \begin{minipage}{0.3\textwidth}
-        \centering
-        \captionof{table}{Dati corretti}
-        \begin{tabular}{|c|c|}
-            \hline
-            $\mathbf{p_i \, [mm]}$ & $\mathbf{q_i \, [mm]}$ \\
-            \hline
-            423.6 & 228.1 \\
-            421.6 & 227.6 \\
-            418.1 & 228.6 \\
-            414.6 & 229.6 \\
-            410.6 & 231.1 \\
-            407.1 & 232.1 \\
-            403.1 & 233.6 \\
-            399.1 & 235.1 \\
-            396.1 & 235.6 \\
-            390.6 & 238.6 \\
-            388.1 & 238.6 \\
-            383.6 & 240.6 \\
-            380.6 & 241.1 \\
-            374.6 & 244.6 \\
-            372.1 & 244.6 \\
-            366.1 & 248.1 \\
-            363.1 & 248.6 \\
-            355.6 & 253.6 \\
-            352.1 & 254.6 \\
-            346.6 & 257.6 \\
-            341.6 & 260.1 \\
-            333.1 & 266.1 \\
-            328.1 & 268.6 \\
-            314.6 & 279.6 \\
-            306.1 & 285.6 \\
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.3\textwidth}
-        \centering
-        \captionof{table}{Focali}
-        \begin{tabular}{|c|}
-            \hline
-            $\mathbf{f_i \, [mm]}$ \\
-            \hline
-            148.3 \\ % 148,26 -> 148.3
-            147.8 \\ % 147,81 -> 147.8
-            147.8 \\ % 147,79 -> 147.8
-            147.8 \\ % 147,77 -> 147.8
-            147.9 \\ % 147,87 -> 147.9
-            147.8 \\ % 147,82 -> 147.8
-            147.9 \\ % 147,89 -> 147.9
-            148.0 \\ % 147,95 -> 148.0
-            147.7 \\ % 147,73 -> 147.7
-            148.1 \\ % 148,12 -> 148.1
-            147.8 \\ % 147,76 -> 147.8
-            147.9 \\ % 147,86 -> 147.9
-            147.6 \\ % 147,60 -> 147.6
-            148.0 \\ % 147,98 -> 148.0
-            147.6 \\ % 147,58 -> 147.6
-            147.9 \\ % 147,88 -> 147.9
-            147.6 \\ % 147,57 -> 147.6
-            148.0 \\ % 148,03 -> 148.0
-            147.8 \\ % 147,77 -> 147.8
-            147.7 \\ % 147,67 -> 147.7
-            147.9 \\ % 147,93 -> 147.9
-            147.7 \\ % 147,69 -> 147.7
-            148.0 \\ % 148,03 -> 148.0
-            147.8 \\ 
-            \hline
-        \end{tabular}
-    \end{minipage}
-    \hfill
-\end{center}
+\begin{tabular}{|c|c||c|c||c|}
+\hline
+\multicolumn{2}{|c||}{\textbf{Dati grezzi}} &
+\multicolumn{2}{c||}{\textbf{Dati corretti}} &
+\textbf{Focali} \\
+\hline
+$\mathbf{p'_i}$ [mm] & $\mathbf{q'_i}$ [mm] &
+$\mathbf{p_i}$ [mm] & $\mathbf{q_i}$ [mm] &
+$\mathbf{f_i}$ [mm] \\
+\hline
+355.0 & 585.0 & 423.6 & 228.1 & 148.3 \\ \hline
+353.0 & 582.5 & 421.6 & 227.6 & 147.8 \\ \hline
+349.5 & 580.0 & 418.1 & 228.6 & 147.8 \\ \hline
+346.0 & 577.5 & 414.6 & 229.6 & 147.8 \\ \hline
+342.0 & 575.0 & 410.6 & 231.1 & 147.9 \\ \hline
+338.5 & 572.5 & 407.1 & 232.1 & 147.8 \\ \hline
+334.5 & 570.0 & 403.1 & 233.6 & 147.9 \\ \hline
+330.5 & 567.5 & 399.1 & 235.1 & 148.0 \\ \hline
+327.5 & 565.0 & 396.1 & 235.6 & 147.7 \\ \hline
+322.0 & 562.5 & 390.6 & 238.6 & 148.1 \\ \hline
+319.5 & 560.0 & 388.1 & 238.6 & 147.8 \\ \hline
+315.0 & 557.5 & 383.6 & 240.6 & 147.9 \\ \hline
+312.0 & 555.0 & 380.6 & 241.1 & 147.6 \\ \hline
+306.0 & 552.5 & 374.6 & 244.6 & 148.0 \\ \hline
+303.5 & 550.0 & 372.1 & 244.6 & 147.6 \\ \hline
+297.5 & 547.5 & 366.1 & 248.1 & 147.9 \\ \hline
+294.5 & 545.0 & 363.1 & 248.6 & 147.6 \\ \hline
+287.0 & 542.5 & 355.6 & 253.6 & 148.0 \\ \hline
+283.5 & 540.0 & 352.1 & 254.6 & 147.8 \\ \hline
+278.0 & 537.5 & 346.6 & 257.6 & 147.8 \\ \hline
+273.0 & 535.0 & 341.6 & 260.1 & 147.7 \\ \hline
+264.5 & 532.5 & 333.1 & 266.1 & 147.9 \\ \hline
+259.5 & 530.0 & 328.1 & 268.6 & 148.7 \\ \hline
+246.0 & 527.5 & 314.6 & 279.6 & 147.0 \\ \hline
+237.5 & 525.0 & 306.1 & 285.6 & 147.8 \\ \hline
+\end{tabular}
+
+\caption{Dati grezzi, corretti e focali in formato orizzontale.}
+\end{table}
+
 
 I valori degli $f_i$ sono stati trovati dalla formula per le lenti sottili:
 
@@ -345,26 +292,77 @@ $\sigma_q^2$: somma in quadratura dell'incertezza su $\Delta q$ e incertezza di 
 
 Essendo la componente $2p_i^2q_i^2Cov(p,q)$ dello stesso ordine di grandezza di $q_i^4\sigma_p^2$ e di $p_i^4\sigma_q^2$ ed essendo la covarianza negativa, si ottengono stime non realistiche, non essendo inoltre soddisfatte le ipotesi per l'espansione lineare al primo ordine della formula. 
 
-Dato che siamo sicuri che in questo caso la covarianza non sia trascurabile, si utilizza la deviazione standard campionaria degli $f_i$, anziché quella della media, seppure con la consapevolezza di sovrastimare l'incertezza, catturandone però le componenti. 
+Dato che siamo sicuri che in questo caso la covarianza non sia trascurabile, si utilizza la deviazione standard campionaria degli $f_i$, anziché quella della media, seppure con la consapevolezza di sovrastimare l'incertezza, catturandone però le componenti di errore casuale.  
 
 \begin{equation}
     \Bar{f}=(147.8\pm0.2)mm
 \end{equation}
 
 
-\subsubsection{Regressione lineare dei reciproci}
+\subsubsection{Stima della focale da regressione lineare}
 
-\begin{figure} [H]
+
+
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\linewidth]{Fit lineare dati.png}
-    \caption{Fit lineare}
-    \label{fig:placeholder}
+    \begin{minipage}{0.6\linewidth} % Grafico più grande
+        \centering
+        \includegraphics[width=\linewidth]{Fit lineare dati.png}
+        \label{fig:regressione}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.38\linewidth} % Tabella più piccola
+        \centering
+        \footnotesize % Riduzione testo tabella
+        \renewcommand{\arraystretch}{1.2}
+        \setlength{\tabcolsep}{6pt}
+        \begin{tabular}{|l|c|c|}
+    \hline
+    \textbf{Parametro} & \textbf{Valore} & \textbf{Stdev} \\ 
+    \hline
+    $a$ (1/mm) & 0.00675 & 0.00001 \\ 
+    \hline
+    $b$  & -0.995 & 0.004\\ 
+    \hline
+\end{tabular}
+        \captionof{table}{Risultati della regressione lineare}
+        \label{tab:linest}
+    \end{minipage}
 \end{figure}
+
+Si ottiene il seguente risultato come reciproco dell'intercetta a:
+
+$$f=(148.1\pm0.2)mm$$
+
+dove l'incertezza è stata ricavata da quella di $a$, tramite propagazione degli errori.
+Tuttavia, la stima non è da considerarsi attendibile, in quanto si è effettuata la regressione lineare in mancanza di ipotesi fondamentali: incertezza trascurabile sulle x, errori indipendenti sulle y e assenza di errori sistematici.
+Ci sono dunque componenti di errore che non vengono considerate nella stima, per questi motivi, non verrà dunque considerata come stima nel confronto finale. 
+
 
 \subsubsection{Minimizzazione degli scarti/ minimi quadrati}
 
+Per stimare la focale con questo metodo si è voluto minimizzare la funzione dello scarto quadratico medio tra i $q_i$ misurati e i $q_i$ teorici, in funzione di $A$ (che rappresenta i possibili valori di $f$).
+
+Minimizzando quindi la funzione 
+
+$$S_A=\sum(q_i-\frac{p_iA}{p_i-A})^2$$
+
+tramite metodo iterativo, si trova il valore di A che minimizza la somma degli scarti. 
+L'incertezza si è considerata essere la semidispersione dei valori di $A$ associati a $S_{A,min}+1$.
+Si riporta di seguito la stima di $f$:
+
+$$f=(147.83\pm0.07)mm$$
+
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{S_A.png}
+    \caption{Minimizzazione degli scarti}
+    \label{fig:placeholder}
+\end{figure}
+
+
 \subsection{Metodo di Bessel}
-\subsubsection{stima della focale}
 Il metodo prevede la stima della distanza focale $f$ tramite la seguente formula:
 \[
 f = \frac{L^{2} - S^{2}}{4L}
@@ -450,7 +448,7 @@ L3,eff & 616.7 \\ \hline
 \end{tabular}
 \end{table}
 
-Si noti che non c'è stato bisogno di agire sui $p_{-},p_{+}$, in quanto per la focale si è utilizzata semplicemente la destanza tra i due punti:
+Si noti che non c'è stato bisogno di agire sui $p_{-},p_{+}$, in quanto per la focale si è utilizzata semplicemente la distanza tra i due punti:
 \[
 S = \left| p_{+} - p_{-} \right|
 \]
@@ -501,22 +499,8 @@ Per ogni lunghezza e colore si sono calcolati i $p_{+,medio}$ e $p_{-,medio}$ e 
 \caption{Differenze $S = P_{+,medio} - P_{-,medio}$}
 \end{table}
 
-Si sono così ottenute tre stime di $f$ per colore, dalle quali si è ricavata la media:
-\begin{table}[H]
-\centering
-\renewcommand{\arraystretch}{1.25} % spazio verticale
-\setlength{\tabcolsep}{10pt}       % spazio orizzontale
 
-\begin{tabular}{|c|c|}
-\hline
-\multicolumn{2}{|c|}{\textbf{F MEDIO [mm]}} \\ \hline
-\textbf{F Blu} & 147.9 \\ \hline
-\textbf{F Rosso} & 149.6 \\ \hline
-\textbf{F Giallo} & 150.3 \\ \hline
-\end{tabular}
-\end{table}
 
-\subsubsection{stima dell'incertezza}
 Per stimare l'incertezza du $f$, ci si è serviti della relazione che stabilisce che la distanza lente-immagine $q$ per la prima posizione della lente ($p_{-}$) è uguale alla distanza lente-oggetto $p$ per la seconda posizione ($p_{+}$), e viceversa.
 Di seguito i dati di $p$ e $q$ reali, cioè affetti da correzione per gli errori sistematici discussi in precedenza:
 \begin{table}[H]
@@ -565,9 +549,101 @@ Di seguito i dati di $p$ e $q$ reali, cioè affetti da correzione per gli errori
 
 \caption{Valori di $p$ e $q$ calcolati con il metodo di Bessel}
 \end{table}
+La formula di riferimento è:\[
+\frac{1}{p} + \frac{1}{q} = \frac{1}{f}
+\]
+Si è voluto verificare quale fosse l'impatto su $f$ delle due lunghezze. Considerata una generica fonte di incertezza casuale $\Delta$=0.5, si è dunque proceduto nel seguente modo:
+\begin{enumerate}
+    \renewcommand{\labelenumi}{\alph{enumi})} % Imposta il formato a), b), c)
+    \item Prendendo $\Delta p$ incertezza su $p$, fissato $\Delta q \approx 0$, si è stimata la distanza focale chiamata $f(a)$:\[
+    \frac{1}{p+\Delta p} + \frac{1}{q} = \frac{1}{f(a)}
+\];
+    \item Prendendo $\Delta q$ incertezza su $q$, fissato $\Delta p \approx 0$, 
+    si è stimata $f(b)$:\[
+    \frac{1}{p} + \frac{1}{q+\Delta q} = \frac{1}{f(b)}
+\];
+    \item Prendendo $\Delta p$=$\Delta q\neq 0$, per stimare $f(c)$:\[
+    \frac{1}{p+\Delta p} + \frac{1}{q+\Delta q} = \frac{1}{f(c)}
+\].
+\end{enumerate}
+Si sono dunque ottenute tre stime $f_{a,b,c}$ per ogni coppia di misure {$p_i$,$q_i$} con i=1,2,3, ovvero una per ogni lunghezza $L$. Di seguito la tabella coi suddetti valori:
+
+% Tabella 1: Medie di p e q
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \label{tab:medie_colori}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \multirow{2}{*}{\textbf{\phantom{Lente}}} & \multicolumn{2}{c|}{\textbf{Blu}} & \multicolumn{2}{c|}{\textbf{Rosso}} & \multicolumn{2}{c|}{\textbf{Giallo}} \\
+        \cline{2-7}
+        & $p_m$ [mm] & $q_m$ [mm] & $p_m$ [mm] & $q_m$ [mm] & $p_m$ [mm] & $q_m$ [mm] \\
+        \hline
+        \textbf{L1} & 230,7 & 400,4 & 237,5 & 393,2 & 240,0 & 390,8 \\
+        \hline
+        \textbf{L2} & 236,5 & 385,0 & 244,4 & 377,2 & 248,0 & 373,9 \\
+        \hline
+        \textbf{L3} & 243,4 & 368,0 & 252,3 & 358,3 & 255,9 & 354,4 \\
+        \hline
+    \end{tabular}
+    \caption{Distanze medie $p_m$ e $q_m$}
+\end{table}
 
 
-
+% Tabella 2: Valori di f calcolati
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \label{tab:focale_colori}
+    \begin{tabular}{|c|c|c|c|c|} % Aggiunta una colonna (c) per la Lente
+        \hline
+        \textbf{ } & \textbf{$f_{a,b,c}$} & \textbf{Blu} & \textbf{Rosso} & \textbf{Giallo} \\
+        \hline
+        % --- Righe L1 (usa \multirow{3}{*}{...} per estendere su 3 righe) ---
+        \multirow{3}{*}{\textbf{L1}} & $f(a)$ & 146,56 & 148,24 & 148,86 \\
+        \cline{2-5} % Linea parziale per separare solo le misurazioni f(a,b,c)
+        & $f(b)$ & 146,43 & 148,12 & 148,74 \\
+        \cline{2-5}
+        & $f(c)$ & 146,63 & 148,31 & 148,93 \\
+        \hline
+        % --- Righe L2 ---
+        \multirow{3}{*}{\textbf{L2}} & $f(a)$ & 146,70 & 148,48 & 149,26 \\
+        \cline{2-5}
+        & $f(b)$ & 146,58 & 148,37 & 149,16 \\
+        \cline{2-5}
+        & $f(c)$ & 146,77 & 148,56 & 149,46 \\
+        \hline
+        % --- Righe L3 ---
+        \multirow{3}{*}{\textbf{L3}} & $f(a)$ & 146,66 & 148,21 & 148,75 \\
+        \cline{2-5}
+        & $f(b)$ & 146,56 & 148,13 & 148,67 \\
+        \cline{2-5}
+        & $f(c)$ & 146,74 & 148,30 & 148,84 \\
+        \hline
+    \end{tabular}
+    \caption{Valori calcolati della distanza focale $f$.}
+\end{table}
+ In seguito si è calcolata la semi-dispersione massima delle stime nella tabella 10 per ogni colore:\[
+ \sigma_{b,r,g} = \frac{maxf_{(a,b,c)}-minf_{(a,b,c)}}{2} = \frac{\Delta f}{2}
+ \]\[
+ \]
+ Sotto si espongono i valori completi relativi alla stima della focale tramite il metodo di Bessel:
+ \begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|c|c|}
+        \hline
+        \multicolumn{2}{|c|}{\textbf{Stima Finale $f \pm \sigma_f$ [mm]}} \\ % Una singola cella che copre 2 colonne
+        \hline
+        $F_{\text{Blu}}$ & $(147,9 \pm 0,2)\text{mm}$ \\
+        \hline
+        $F_{\text{Rosso}}$ & $(149,6 \pm 0,2)\text{mm}$ \\
+        \hline
+        $F_{\text{Giallo}}$ & $(150,3 \pm 0,4)\text{mm}$ \\
+        \hline
+    \end{tabular}
+    \caption{stima finale $f$ con metodo di Bessel}
+\end{table}
 
 
 
