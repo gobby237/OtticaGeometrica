@@ -94,7 +94,7 @@ Di seguito una tabella esaustiva con tutte le grandezze e le relative incertezze
         Distanza fine carrellino schermo e inizio carrellino lente & $d'$ & 57.5 & 0.1 \\
         \hline
         Distanza inizio carrellino e vertice sx lente bianca &
-        $d_{V} = L - d' - \frac{s_c}{2} + \frac{s_s}{2}$ & 12.8 & 0.2 \\
+        $d_{V} = l_p - d' - \frac{s_c}{2} + \frac{s_s}{2}$ & 12.8 & 0.2 \\
         \hline
         Distanza vertice dx lente e fine carrellino &
         $d_{V'} = s_c - VV' - s_v$ & 5.4 & 0.2 \\
@@ -232,7 +232,9 @@ Si è effettuata una stima della focale della lente con pallino bianco tramite d
 
 \subsection{Metodo dei punti coniugati - Blu}
 
-Al fine di creare un campione $\{p_i,q_i\}_{i=1,...,25}$ si è partiti da una lunghezza fissata della CCD, per poi spostarla con passo 2.5 mm verso l'inizio della guida; ogni volta avendo cura di spostare la lente in modo che l'immagine sulla camera risultasse a fuoco. 
+
+
+Al fine di creare un campione $\{p_i,q_i\}_{i=1,...,25}$ si è partiti da una lunghezza fissata della CCD, per poi spostarla con passo 2.5 mm verso l'inizio della guida; ogni volta avendo cura di spostare la lente in modo che l'immagine sulla camera risultasse a fuoco. Per tutte le misure acquisite per il metodo dei punti coniugati si è usato il filtro blu, in quanto rendeva più facile l'identificazione della posizione a fuoco. 
 
 Di seguito i tre metodi per la stima della focale.
 
@@ -293,21 +295,8 @@ Per trovare la stima di $f$ si è usata la media campionaria degli $\{f_i\}_{i=1
 \operatorname{Cov}(p, q) = -\sigma_{p'}^2 - \sigma_L^2 - \sigma_{d'}^2 - \frac{1}{4}\sigma_{s_c}^2 - \frac{1}{4}\sigma_{s_s}^2 - \frac{2}{9}\sigma_{VV'}^2 = -0.12
 \end{equation}
 
-La covarianza risulta negativa, infatti le due variabili sono inversamente correlate, quando una aumenta, l'altra tende a diminuire. 
-
-Per il calcolo dell'incertezza da associare a ciascun $f_i$ si vuole applicare la propagazione dell'incertezza, descritta dalla formula: 
-
-\begin{equation}
-    \sigma_{f_i}^2 = \frac{q_i^4 \sigma_p^2 + p_i^4 \sigma_q^2 + 2 p_i^2 q_i^2 \operatorname{Cov}(p, q)}{(p_i + q_i)^4}
-\end{equation}
-
-$\sigma_p^2$: somma in quadratura dell'incertezza su $\Delta p$ e incertezza di misura  
-
-$\sigma_q^2$: somma in quadratura dell'incertezza su $\Delta q$ e incertezza di misura  
-
-Essendo la componente $2p_i^2q_i^2Cov(p,q)$ dello stesso ordine di grandezza di $q_i^4\sigma_p^2$ e di $p_i^4\sigma_q^2$ ed essendo la covarianza negativa, si ottengono stime non realistiche, non essendo inoltre soddisfatte le ipotesi per l'espansione lineare al primo ordine della formula. 
-
-Dato che siamo sicuri che in questo caso la covarianza non sia trascurabile, si utilizza la deviazione standard campionaria degli $f_i$, anziché quella della media, seppure con la consapevolezza di sovrastimare l'incertezza, catturandone però le componenti di errore casuale.  
+La covarianza risulta negativa, infatti le due variabili sono inversamente correlate, quando una aumenta, l'altra tende a diminuire. \\
+Data la non linearità della relazione tra $f$, p e q e la covarianza significativa tra p e q, la propagazione dell’incertezza al primo ordine non fornisce stime affidabili. Si è quindi preferito utilizzare la deviazione standard campionaria delle $f_i$ come stima dell’incertezza, che, seppur conservativa, cattura in modo robusto le fluttuazioni casuali.  
 
 \begin{equation}
     \bar{f}_{blu,camp}  \, \pm \, \sigma_{{f}_{blu,min}} =(147.8\pm0.2) \mathrm{\, mm}
@@ -316,7 +305,9 @@ Dato che siamo sicuri che in questo caso la covarianza non sia trascurabile, si 
 
 \subsubsection{Stima della focale da regressione lineare}
 
+Nonostante importanti ipotesi necessarie per la regressione lineare, quali incertezza trascurabile sulle $x$, errori indipendenti sulle $y$ e assenza di errori sistematici vengano a mancare, si è comunque proceduto a questa analisi.
 
+Infatti, seppure la stima finale non è da considerarsi attendibile, si possono tuttavia ricavare informazioni sulla quantificazione delle correzioni sistematiche: essendo la pendenza $b$ della retta molto vicina a $b=-1$ (entro circa una deviazione standard) si può concludere che le correzioni sistematiche in modulo e verso sono state correttamente applicate. 
 
 \begin{figure}[H]
     \centering
@@ -345,36 +336,75 @@ Dato che siamo sicuri che in questo caso la covarianza non sia trascurabile, si 
     \end{minipage}
 \end{figure}
 
-Si ottiene il seguente risultato come reciproco dell'intercetta a:
+Si ottiene quindi il seguente risultato come reciproco dell'intercetta $a$:
 
 $$\bar{f}_{blu, reg}  \, \pm \, \sigma_{\bar{f}_{blu,reg}} =(148.1\pm0.2)\mathrm{\, mm}$$
 
 dove l'incertezza è stata ricavata da quella di $a$, tramite propagazione degli errori.
-Tuttavia, la stima non è da considerarsi attendibile, in quanto si è effettuata la regressione lineare in mancanza di ipotesi fondamentali: incertezza trascurabile sulle x, errori indipendenti sulle y e assenza di errori sistematici.
-Ci sono dunque componenti di errore che non vengono considerate nella stima, per questi motivi, non verrà dunque considerata come stima nel confronto finale. 
+Tuttavia, per mancanza di ipotesi iniziali e componenti di errore non considerati, la stima non verrà considerata nel confronto finale.
 
-
-\subsubsection{Minimizzazione degli scarti/ minimi quadrati}
+\subsubsection{Minimizzazione degli scarti}
 
 Per stimare la focale con questo metodo si è voluto minimizzare la funzione dello scarto quadratico medio tra i $q_i$ misurati e i $q_i$ teorici, in funzione di $A$. \\
 Si minimizza quindi la funzione:
 
-$$S_A=\sum(q_i-\frac{p_iA}{p_i-A})^2$$
+
+$$\sum_{i=1}^{N} (q_i-\frac{p_iA}{p_i-A})^2$$
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.55\linewidth} % Grafico più grande
+        \centering
+        \includegraphics[width=\linewidth]{S_A.png}
+        \label{fig:regressione}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.38\linewidth} % Tabella più piccola
+        \centering
+        \footnotesize % Riduzione testo tabella
+        \renewcommand{\arraystretch}{1.2}
+        \setlength{\tabcolsep}{6pt}
+        \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Parametro} & \textbf{Valore}\\
+    \hline
+    $A[mm]$ & 147.83 \\ 
+    \hline
+    $\sigma_A[mm]$ & 0.07 \\
+    \hline
+    $S_A$ [$mm^2$] & 5.2 \\ 
+    \hline
+    $S_A+1[mm^2]$ & 6.2\\ 
+    \hline
+\end{tabular}
+        \captionof{table}{Tabella riassuntiva minimizzazione di $S_A$}
+        \label{tab:linest}
+    \end{minipage}
+\end{figure}
 
 tramite metodo iterativo, si trova il valore di A che minimizza la somma degli scarti. 
 L'incertezza si è considerata essere la semidispersione dei valori di $A$ associati a $S_{A,min}+1$.
-Si riporta di seguito la stima di $f$ ed il grafico relativo:
-
-$$\bar{f}_{blu,min} \, \pm \, \sigma_{\bar{f}_{blu,min}}=(147.83\pm0.07)\mathrm{\,mm}$$
 
 
-\begin{figure} [H]
+\subsubsection{Confronto focali - Blu}
+
+\begin{table}[h]
     \centering
-    \includegraphics[width=0.5\linewidth]{S_A.png}
-    \caption{Minimizzazione degli scarti}
-    \label{fig:placeholder}
-\end{figure}
-
+    \renewcommand{\arraystretch}{1.3}
+    \setlength{\tabcolsep}{8pt}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Metodo} & \textbf{$f$ [mm]} & \textbf{$\sigma_f$ [mm]} \\
+        \hline
+        Campionamento & 147.8 & 0.2  \\
+        \hline
+        Regressione lineare & 148.1 & 0.2  \\
+        \hline
+        Minimizzazione scarti & 147.83 & 0.07  \\
+        \hline
+    \end{tabular}
+    \caption{Confronto delle stime per il blu}
+\end{table}
 
 \subsection{Metodo di Bessel}
 Il metodo prevede la stima della distanza focale $f$ tramite la seguente formula:
@@ -382,11 +412,17 @@ Il metodo prevede la stima della distanza focale $f$ tramite la seguente formula
 f = \frac{L^{2} - S^{2}}{4L}
 \]
 $L$ : distanza oggetto-immagine;\\
-$S$ : distanza tra le due posizioni della lente a fuoco, [$p_{+} - p_{-}$];\[
-\]\[
-*disegno*
-\]\[\]
-I due valori $p_{-},p_{+}$ sono stati presi fissando l'oggetto e la camera e spostando la lente avanti e indietro.
+$S$ : differenza delle distanze tra le due posizioni della lente a fuoco S = $ P_{+} - P_{-}$. \\
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=1\linewidth]{Schema_generico_bessel.png}
+    \caption{Schema generale bessel}
+    \label{fig:placeholder}
+\end{figure}
+
+
+I due valori $P_{-},P_{+}$ sono stati presi fissando l'oggetto e la camera e spostando la lente avanti e indietro.
 E' stato acquisito un set di misure a tre diverse lunghezze $L_{1,2,3}$ per ogni colore, così da avere tre stime della focale $\{f_{blu,i}\}_{i= 1,2,3}, \{f_{ambra,i}\}_{i= 1,2,3}, \{f_{rosso,i}\}_{i= 1,2,3}$. Di seguito si riportano i dati grezzi in tabella:
 
 \begin{table}[H]
@@ -410,7 +446,7 @@ E' stato acquisito un set di misure a tre diverse lunghezze $L_{1,2,3}$ per ogni
 \textbf{$P'-$ [mm]} & \textbf{$P'+$ [mm]} \\
 \hline
 
-\multirow{6}{*}{\textbf{\footnotesize L1 = 570 $\pm$ 0.1 mm}}
+\multirow{6}{*}{\textbf{\footnotesize $L_1'$ = 570 $\pm$ 0.1 mm}}
 & 165.0 & 334.5 & 171.5 & 327.0 & 174.0 & 324.5 \\ \cline{2-7}
 & 164.5 & 334.0 & 171.0 & 327.0 & 173.5 & 324.5 \\ \cline{2-7}
 & 164.5 & 334.0 & 171.5 & 327.5 & 174.0 & 324.0 \\ \cline{2-7}
@@ -418,7 +454,7 @@ E' stato acquisito un set di misure a tre diverse lunghezze $L_{1,2,3}$ per ogni
 & 164.5 & 333.5 & 171.5 & 326.5 & 174.0 & 325.0 \\ \cline{2-7}
 & 164.5 & 334.5 & 171.0 & 327.0 & 173.5 & 324.5 \\ \hline
 
-\multirow{6}{*}{\textbf{\footnotesize L2 = 560 $\pm$ 0.1 mm}}
+\multirow{6}{*}{\textbf{\footnotesize $L_2'$ = 560 $\pm$ 0.1 mm}}
 & 171.0 & 319.0 & 178.5 & 310.5 & 182.0 & 307.5 \\ \cline{2-7}
 & 170.0 & 319.0 & 178.0 & 311.0 & 182.0 & 307.5 \\ \cline{2-7}
 & 170.5 & 318.5 & 178.0 & 311.0 & 182.0 & 307.5 \\ \cline{2-7}
@@ -426,7 +462,7 @@ E' stato acquisito un set di misure a tre diverse lunghezze $L_{1,2,3}$ per ogni
 & 170.0 & 319.0 & 178.5 & 311.5 & 181.5 & 308.5 \\ \cline{2-7}
 & 170.5 & 318.5 & 178.0 & 311.0 & 181.5 & 307.5 \\ \hline
 
-\multirow{6}{*}{\textbf{\footnotesize L3 = 550 $\pm$ 0.1 mm}}
+\multirow{6}{*}{\textbf{\footnotesize $L_3'$ = 550 $\pm$ 0.1 mm}}
 & 177.5 & 302.5 & 185.5 & 292.0 & 189.5 & 288.0 \\ \cline{2-7}
 & 177.0 & 301.5 & 186.0 & 292.0 & 190.0 & 288.5 \\ \cline{2-7}
 & 177.5 & 301.5 & 186.5 & 291.5 & 189.5 & 288.0 \\ \cline{2-7}
@@ -443,80 +479,65 @@ E' stato acquisito un set di misure a tre diverse lunghezze $L_{1,2,3}$ per ogni
 
 
 
-Le lunghezze $L$ e le distanze $p_{-},p_{+}$ riportate nella tabella sono lette dalla guida e per avere il reale valore che esse rappresentano, è stato aggiunto l'errore sistematico discusso in precedenza:
+Le lunghezze $L'$ riportate nella tabella sono lette dall'inzio guida e per avere il reale valore che esse rappresentano, è stato aggiunto l'errore sistematico $\Delta L = d_m + d_{ccd} - VV'/3$ ottenendo: 
 
 \begin{table}[H]
 \centering
-
-% --- Spaziatura uniforme ---
-\renewcommand{\arraystretch}{1.3}   % spazio verticale
-\setlength{\tabcolsep}{8pt}        % spazio orizzontale
-% ----------------------------
-
-\begin{tabular}{|c|c|}
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{|c|c|c|}
 \hline
-\multicolumn{2}{|c|}{\textbf{Distanza oggetto–immagine [mm]}} \\ \hline
-L1,eff & 636.7 \\ \hline
-L2,eff & 626.7 \\ \hline
-L3,eff & 616.7 \\ \hline
+\textbf{$L_1$ [mm]} & \textbf{$L_2$ [mm]} & \textbf{$L_3$ [mm]}  \\
+\hline
+636.7 & 626.7 & 616.7 \\
+\hline
 \end{tabular}
 \end{table}
 
-Si noti che non c'è stato bisogno di agire sui $p_{-},p_{+}$, in quanto per la focale si è utilizzata semplicemente la distanza tra i due punti:
-\[
-S = \left| p_{+} - p_{-} \right|
-\]
-
-Per ogni lunghezza e colore si sono calcolati i $p_{+,medio}$ e $p_{-,medio}$ e con essi le rispettive $S$, come si esibisce sotto:
-% ------------------- PRIMA TABELLA -------------------
+Si noti che non c'è stato bisogno di agire sui $P_{-},P_{+}$, in quanto i contributi di errore sistematico si eliminano per differenza. 
+Per ogni lunghezza e colore si sono calcolati i $\overline{P}_{+}$ e $\overline{P}_{-}$ e con essi le rispettive $\overline{S}$, come si esibisce sotto:
+\\
 \begin{table}[H]
 \centering
-\renewcommand{\arraystretch}{1.25} % spazio verticale
-\setlength{\tabcolsep}{10pt}       % spazio orizzontale
-
+\hspace{-2cm}
+\begin{minipage}[t]{0.60\textwidth}
+\centering
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{7pt}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
- & \multicolumn{2}{c|}{\textbf{Blu}} & \multicolumn{2}{c|}{\textbf{Rosso}} & \multicolumn{2}{c|}{\textbf{Giallo}} \\ \hline
+ & \multicolumn{2}{c|}{\textbf{Blu}} & \multicolumn{2}{c|}{\textbf{Rosso}} & \multicolumn{2}{c|}{\textbf{Ambra}} \\ \hline
  & \textbf{$\overline{P'_{-}}$} & \textbf{$\overline{P'_{+}}$} &
  \textbf{$\overline{P'_{-}}$} & \textbf{$\overline{P'_{+}}$} &
  \textbf{$\overline{P'_{-}}$} & \textbf{$\overline{P'_{+}}$} \\ \hline
-
 \textbf{L1} & 164.5 & 334.2 & 171.3 & 327.0 & 173.8 & 324.6 \\ \hline
 \textbf{L2} & 170.3 & 318.8 & 178.2 & 311.0 & 181.8 & 307.7 \\ \hline
 \textbf{L3} & 177.2 & 301.8 & 186.1 & 292.1 & 189.7 & 288.2 \\ \hline
-
 \end{tabular}
-
-
-\caption{Valori medi $P_-$ e $P_+$ }
-\end{table}
-
-
-
-% ------------------- SECONDA TABELLA -------------------
-\begin{table}[H]
+\caption{Valori medi $\overline{P}_-$ e $\overline{P}_+$}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[t]{0.28\textwidth}
 \centering
-\renewcommand{\arraystretch}{1.25} % spazio verticale
-\setlength{\tabcolsep}{10pt}       % spazio orizzontale
-
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{8pt}
 \begin{tabular}{|c|c|c|c|}
 \hline
- & \textbf{Blu} & \textbf{Rosso} & \textbf{Giallo} \\ \hline
- & \textbf{$S = \overline{P_{+}} - \overline{P_{-}}$ } & \textbf{$S = \overline{P_{+}} - \overline{P_{-}}$ } & \textbf{$S = \overline{P_{+}} - \overline{P_{-}}$ } \\ \hline
-
+ & \textbf{Blu} & \textbf{Rosso} & \textbf{Ambra} \\ \hline
+ & \textbf{$\overline{S}$ } & \textbf{$\overline{S}$ } & \textbf{$\overline{S}$ } \\ \hline
 \textbf{L1} & 169.7 & 155.8 & 150.8 \\ \hline
 \textbf{L2} & 148.4 & 132.8 & 125.9 \\ \hline
 \textbf{L3} & 124.6 & 106 & 98.5 \\ \hline
-
 \end{tabular}
-
-\caption{Differenze $S = P_{+,medio} - P_{-,medio}$}
+\caption{Differenze $\overline{S} = \overline{P}_+ - \overline{P}_-$}
+\end{minipage}
 \end{table}
 
+\vspace{-0.5cm}
 
+Per stimare l'incertezza di $f$, ci si è serviti della relazione che stabilisce che la distanza lente-immagine $q$ per la prima posizione della lente ($P_{-}$) è uguale alla distanza lente-oggetto $p$ per la seconda posizione ($P_{+}$), e viceversa.
+Di seguito i dati di $p$ e $q$ corretti da errori sistematici, discussi in precedenza:
 
-Per stimare l'incertezza du $f$, ci si è serviti della relazione che stabilisce che la distanza lente-immagine $q$ per la prima posizione della lente ($p_{-}$) è uguale alla distanza lente-oggetto $p$ per la seconda posizione ($p_{+}$), e viceversa.
-Di seguito i dati di $p$ e $q$ reali, cioè affetti da correzione per gli errori sistematici discussi in precedenza:
 \begin{table}[H]
 \centering
 
@@ -526,9 +547,9 @@ Di seguito i dati di $p$ e $q$ reali, cioè affetti da correzione per gli errori
 
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
- & \multicolumn{2}{c|}{\textbf{blu}} 
- & \multicolumn{2}{c|}{\textbf{rosso}} 
- & \multicolumn{2}{c|}{\textbf{giallo}} \\ \hline
+ & \multicolumn{2}{c|}{\textbf{Blu}} 
+ & \multicolumn{2}{c|}{\textbf{Rosso}} 
+ & \multicolumn{2}{c|}{\textbf{Ambra}} \\ \hline
 
 \textbf{L.guida} &
 \textbf{$p$ [mm]} & \textbf{$q$ [mm]} &
@@ -563,24 +584,26 @@ Di seguito i dati di $p$ e $q$ reali, cioè affetti da correzione per gli errori
 
 \caption{Valori di $p$ e $q$ calcolati con il metodo di Bessel}
 \end{table}
+
+
 La formula di riferimento è:\[
 \frac{1}{p} + \frac{1}{q} = \frac{1}{f}
 \]
 Si è voluto verificare quale fosse l'impatto su $f$ delle due lunghezze. Considerata una generica fonte di incertezza casuale $\Delta$=0.5, si è dunque proceduto nel seguente modo:
 \begin{enumerate}
     \renewcommand{\labelenumi}{\alph{enumi})} % Imposta il formato a), b), c)
-    \item Prendendo $\Delta p$ incertezza su $p$, fissato $\Delta q \approx 0$, si è stimata la distanza focale chiamata $f(a)$:\[
-    \frac{1}{p+\Delta p} + \frac{1}{q} = \frac{1}{f(a)}
-\];
+    \item Prendendo $\Delta p$ incertezza su $p$, fissato $\Delta q \approx 0$, si è stimata la distanza focale chiamata $f_a$:\[
+    \frac{1}{p+\Delta p} + \frac{1}{q} = \frac{1}{f_a}
+\]
     \item Prendendo $\Delta q$ incertezza su $q$, fissato $\Delta p \approx 0$, 
-    si è stimata $f(b)$:\[
-    \frac{1}{p} + \frac{1}{q+\Delta q} = \frac{1}{f(b)}
-\];
-    \item Prendendo $\Delta p$=$\Delta q\neq 0$, per stimare $f(c)$:\[
-    \frac{1}{p+\Delta p} + \frac{1}{q+\Delta q} = \frac{1}{f(c)}
-\].
+    si è stimata $f_b$:\[
+    \frac{1}{p} + \frac{1}{q+\Delta q} = \frac{1}{f_b}
+\]
+    \item Prendendo $\Delta p$=$\Delta q\neq 0$, per stimare $f_c$:\[
+    \frac{1}{p+\Delta p} + \frac{1}{q+\Delta q} = \frac{1}{f_c}
+\]
 \end{enumerate}
-Si sono dunque ottenute tre stime $f_{a,b,c}$ per ogni coppia di misure {$p_i$,$q_i$} con i=1,2,3, ovvero una per ogni lunghezza $L$. Di seguito la tabella coi suddetti valori:
+Si sono così ottenute tre stime \( f_a \), \( f_b \) e \( f_c \) per ciascuna coppia di valori medi \( \{p_m, q_m\} \), dove \( p_m \) e \( q_m \) rappresentano le medie di \( p \) e \( q \) calcolate per ogni lunghezza \( L \) e per ogni colore. I risultati sono riportati nella tabella seguente.
 
 % Tabella 1: Medie di p e q
 \begin{table}[h]
@@ -589,15 +612,15 @@ Si sono dunque ottenute tre stime $f_{a,b,c}$ per ogni coppia di misure {$p_i$,$
     \label{tab:medie_colori}
     \begin{tabular}{|c|c|c|c|c|c|c|}
         \hline
-        \multirow{2}{*}{\textbf{\phantom{Lente}}} & \multicolumn{2}{c|}{\textbf{Blu}} & \multicolumn{2}{c|}{\textbf{Rosso}} & \multicolumn{2}{c|}{\textbf{Giallo}} \\
+        \multirow{2}{*}{\textbf{\phantom{Lente}}} & \multicolumn{2}{c|}{\textbf{Blu}} & \multicolumn{2}{c|}{\textbf{Rosso}} & \multicolumn{2}{c|}{\textbf{Ambra}} \\
         \cline{2-7}
         & $p_m$ [mm] & $q_m$ [mm] & $p_m$ [mm] & $q_m$ [mm] & $p_m$ [mm] & $q_m$ [mm] \\
         \hline
-        \textbf{L1} & 230,7 & 400,4 & 237,5 & 393,2 & 240,0 & 390,8 \\
+        \textbf{L1} & 230.7 & 400.4 & 237.5 & 393.2 & 240.0 & 390.8 \\
         \hline
-        \textbf{L2} & 236,5 & 385,0 & 244,4 & 377,2 & 248,0 & 373,9 \\
+        \textbf{L2} & 236.5 & 385.0 & 244.4 & 377.2 & 248.0 & 373.9 \\
         \hline
-        \textbf{L3} & 243,4 & 368,0 & 252,3 & 358,3 & 255,9 & 354,4 \\
+        \textbf{L3} & 243.4 & 368.0 & 252.3 & 358.3 & 255.9 & 354.4 \\
         \hline
     \end{tabular}
     \caption{Distanze medie $p_m$ e $q_m$}
@@ -611,57 +634,54 @@ Si sono dunque ottenute tre stime $f_{a,b,c}$ per ogni coppia di misure {$p_i$,$
     \label{tab:focale_colori}
     \begin{tabular}{|c|c|c|c|c|} % Aggiunta una colonna (c) per la Lente
         \hline
-        \textbf{ } & \textbf{$f_{a,b,c}$} & \textbf{Blu} & \textbf{Rosso} & \textbf{Giallo} \\
+        \textbf{ } & \textbf{$f_{a,b,c}$} & \textbf{Blu} & \textbf{Rosso} & \textbf{Ambra} \\
         \hline
         % --- Righe L1 (usa \multirow{3}{*}{...} per estendere su 3 righe) ---
-        \multirow{3}{*}{\textbf{L1}} & $f(a)$ & 146,56 & 148,24 & 148,86 \\
+        \multirow{3}{*}{\textbf{L1}} & $f_a$ & 146.6 & 148.2 & 148.9 \\
         \cline{2-5} % Linea parziale per separare solo le misurazioni f(a,b,c)
-        & $f(b)$ & 146,43 & 148,12 & 148,74 \\
+        & $f_b$ & 146.4 & 148.1 & 148.7 \\
         \cline{2-5}
-        & $f(c)$ & 146,63 & 148,31 & 148,93 \\
+        & $f_c$ & 146.6 & 148.3 & 148.9 \\
         \hline
         % --- Righe L2 ---
-        \multirow{3}{*}{\textbf{L2}} & $f(a)$ & 146,70 & 148,48 & 149,26 \\
+        \multirow{3}{*}{\textbf{L2}} & $f_a$ & 146.7 & 148.5 & 149.3 \\
         \cline{2-5}
-        & $f(b)$ & 146,58 & 148,37 & 149,16 \\
+        & $f_b$ & 146.6 & 148.4 & 149.1 \\
         \cline{2-5}
-        & $f(c)$ & 146,77 & 148,56 & 149,46 \\
+        & $f_c$ & 146.8 & 148.6 & 149.5 \\
         \hline
         % --- Righe L3 ---
-        \multirow{3}{*}{\textbf{L3}} & $f(a)$ & 146,66 & 148,21 & 148,75 \\
+        \multirow{3}{*}{\textbf{L3}} & $f_a$ & 146.7 & 148.2 & 148.8 \\
         \cline{2-5}
-        & $f(b)$ & 146,56 & 148,13 & 148,67 \\
+        & $f_b$ & 146.6 & 148.1 & 148.7 \\
         \cline{2-5}
-        & $f(c)$ & 146,74 & 148,30 & 148,84 \\
+        & $f_c$ & 146.7 & 148.3 & 148.8 \\
         \hline
     \end{tabular}
     \caption{Valori calcolati della distanza focale $f$.}
 \end{table}
- In seguito si è calcolata la semi-dispersione massima delle stime nella tabella 10 per ogni colore:\[
- \sigma_{b,r,g} = \frac{maxf_{(a,b,c)}-minf_{(a,b,c)}}{2} = \frac{\Delta f}{2}
- \]\[
+ In seguito si è calcolata la semi-dispersione massima delle stime nell'ultima tabella per ogni colore:\[
+ \sigma_{b,r,a} = \frac{maxf_{(a,b,c)}-minf_{(a,b,c)}}{2} = \frac{\Delta f}{2}
  \]
  Sotto si espongono i valori completi relativi alla stima della focale tramite il metodo di Bessel:
- \begin{table}[h]
+ \begin{table}[H]
     \centering
     \renewcommand{\arraystretch}{1.25}
     \begin{tabular}{|c|c|c|}
         \hline
         \textbf{Colore} & \textbf{Media [$\bar{f}_{bessel}$] [mm]} & \textbf{Stdev media [mm]} \\
         \hline
-        Blu    & 147,9 & 0,2 \\
+        Blu    & 147.9 & 0.2 \\
         \hline
-        Rosso  & 149,6 & 0,2 \\
+        Rosso  & 149.6 & 0.2 \\
         \hline
-        Giallo & 150,3 & 0,4 \\
+        Ambra & 150.3 & 0.4 \\
         \hline
     \end{tabular}
     \caption{Stima finale della lunghezza focale \(f\) con il metodo di Bessel.}
 \end{table}
 
-
-
-\subsection{Discussione risultati sulle focali}
+Dalla stima dell'incertezza si evince che il blu e il rosso siano colori più facili da utilizzare, mentre l'ambra presenta una maggiore probabilità di errore. 
 
 \section{Stima delle aberrazioni}
 
@@ -677,7 +697,8 @@ Di seguito uno schema introduttivo che illustra le diverse tipologie di aberrazi
 \subsection{Aberrazione sferica longitudinale}
 
 Per stimare l’aberrazione sferica longitudinale della lente n.13, si è acquisito un campione di cinque misure per ciascuna configurazione.
-In ogni misura è stata registrata la posizione della lente sulla guida ottica, definita come la distanza tra l’origine della guida e l’inizio del carrellino porta–lente, nel momento in cui l’immagine proiettata sullo schermo risultava a fuoco. \\ 
+
+Si è fissata la posizione della camera ccd a $l_{ccd} \, \pm \, \sigma_{l_{ccd}} = (255 \, \pm \, 0.1)$ mm e per ogni misura è stata registrata la posizione della lente sulla guida ottica, definita come la distanza tra l’origine della guida e l’inizio del carrellino porta–lente, nel momento in cui l’immagine proiettata sullo schermo risultava a fuoco. \\ 
 Si distinguono due grandezze sperimentali:
 \begin{enumerate}
     \item $P_p$: posizione della lente corrispondente al fuoco parassiale, ottenuto mediante i raggi prossimi all’asse ottico;
@@ -688,7 +709,7 @@ I dati così raccolti sono illustrati di seguito.
 
 
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.2}
 \setlength{\tabcolsep}{10pt}
@@ -697,7 +718,7 @@ I dati così raccolti sono illustrati di seguito.
 \hline
 \multicolumn{2}{|c|}{\textbf{Blu}} & % Colore BLU (2 colonne)
 \multicolumn{2}{|c|}{\textbf{Rosso}} & % Colore ROSSO (2 colonne)
-\multicolumn{2}{|c|}{\textbf{Giallo}} \\ % Colore GIALLO (2 colonne)
+\multicolumn{2}{|c|}{\textbf{Ambra}} \\ % Colore GIALLO (2 colonne)
 \hline
 \textbf{$P_m$ [mm]} &
 \textbf{$P_p$ [mm]} &
@@ -718,10 +739,40 @@ I dati così raccolti sono illustrati di seguito.
 \caption{Raccolta dati aberrazione sferica longitudinale}
 \end{table}
 
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{10pt}
+\begin{minipage}{0.45\textwidth}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Colore} & \textbf{$\bar{P}_m$ [mm]} & \textbf{$\sigma_{\bar{P}_m}$ [mm]} \\ \hline
+Blu & 211.2 & 0.1 \\ \hline
+Rosso & 212.1 & 0.1 \\ \hline
+Ambra & 212.3 & 0.1 \\ \hline
+\end{tabular}
+\end{minipage}
+\hspace{0cm}
+\begin{minipage}{0.45\textwidth}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Colore} & \textbf{$\bar{P}_p$ [mm]} & \textbf{$\sigma_{\bar{P}_p}$ [mm]} \\ \hline
+Blu & 217.1 & 0.1 \\ \hline
+Rosso & 218.0 & 0.1 \\ \hline
+Ambra & 218.1 & 0.1 \\ \hline
+\end{tabular}
+\end{minipage}
+\caption{Media e deviazione standard della media per le posizioni $P_m$ e $P_p$ nei tre colori}
+\label{tab:stime_pm_pp}
+\end{table}
+
 
 Si ricava poi un campione derivato per ogni colore $\{A_L\}_{i=1...5}$, dove $A_{L,i} = P_{p,i} - P_{m,i} $, con media e stdev come segue: 
 
-\begin{table}[h!]
+
+\begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{10pt}
@@ -731,7 +782,7 @@ Si ricava poi un campione derivato per ogni colore $\{A_L\}_{i=1...5}$, dove $A_
 \textbf{Colore} & \textbf{Media [$A_{L}$] [mm]} & \textbf{Stdev media [mm]} \\ \hline
 Blu & 5.9 & 0.1 \\ \hline
 Rosso & 5.9 & 0.1 \\ \hline
-Giallo & 5.8 & 0.2 \\ \hline
+Ambra & 5.8 & 0.2 \\ \hline
 \end{tabular}
 
 \caption{Stime, per colore, di $A_L$}
@@ -742,9 +793,8 @@ Giallo & 5.8 & 0.2 \\ \hline
 In laboratorio si è raccolto un campione di 5 immagini per ogni colore, da cui poter stimare l'aberrazione sferica trasversale, dato che l'intervallo visibile del fuoco era piuttosto ampio. Ogni presa è stata fatta seguendo lo stesso criterio: si sapeva di essere in corrispondenza di un fuoco parassiale qualora si vedessero i raggi marginali unirsi e quelli parassiali divergere.
 \subsubsection{Impostazione scala pixel-mm}
 
-Per procedere alla misura si è prima impostata la scala di conversione pixel-mm nel software imagej, sfruttando il fatto che il diametro dei fori della maschera è: $$ d = (\, 0,5 \, \pm \, 0,1 )\mathrm{\,mm} $$ 
-Di seguito i passaggi fondamentali: \\
-\\
+Per procedere alla misura si è prima impostata la scala di conversione pixel-mm nel software imagej, sfruttando il fatto che il diametro dei fori della maschera è $ d = (\, 0,5 \, \pm \, 0,1 )\mathrm{\,mm} $. Di seguito i passaggi fondamentali. 
+
 \textbf{Sovrapposizione immagini}: tutte le immagini di un campione sono state sovrapposte con la funzione $Sum$ che permette di sommare punto per punto le intensità luminose di tutte le immagini. 
 \\ 
 \begin{center}
@@ -752,7 +802,7 @@ Di seguito i passaggi fondamentali: \\
 \raggedright
 
 \textbf{Raccolta campione diametri}: si è raccolto un campione di 15 profili d'intensità
-(5 per ogni punto) lungo i diametri delle circonferenze di guida, tracciate come nell'immagine a fianco.
+(5 per ogni fuoco) lungo i diametri delle circonferenze di guida, tracciate come nell'immagine a fianco.
 \end{minipage}%
 \hfill
 \begin{minipage}[t]{0.68\textwidth}%
@@ -776,13 +826,13 @@ Di seguito i passaggi fondamentali: \\
 \hline
 \multicolumn{2}{|c|}{\textbf{Blu}} % Rimosso l'iniziale '&' e cambiato il bordo
 & \multicolumn{2}{c|}{\textbf{Rosso}}
-& \multicolumn{2}{c|}{\textbf{Giallo}} \\ \hline
+& \multicolumn{2}{c|}{\textbf{Ambra}} \\ \hline
 
 $d'$ [pixel] & $\sigma_{d'}$ [pixel] % Rimosso l'iniziale '&'
 & $d'$ [pixel] & $\sigma_{d'}$ [pixel]
 & $d'$ [pixel] & $\sigma_{d'}$ [pixel] \\ \hline
 
-24.13 & 3.28 & 21.6 & 2.66 & 19.20 & 1.68 \\ \hline % Rimosso l'iniziale '&'
+24 & 3 & 22 & 3 & 19 & 2 \\ \hline % Rimosso l'iniziale '&'
 \end{tabular}
 
 \caption{Stima dei diametri e relative deviazioni standard per i tre colori.}
@@ -819,21 +869,21 @@ Si riportano di seguito i dati così ottenuti, con media e stdev della media.
 \renewcommand{\arraystretch}{1.25}
 \setlength{\tabcolsep}{8pt}
 
-\begin{tabular}{|c|cccccccccc|}
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
 \textbf{Colore} & \multicolumn{10}{c|}{\textbf{$A_T$ [pixel]}} \\ \hline
 
 \textbf{Blu} &
-17.10 & 17.04 & 16.52 & 16.42 & 16.30 &
-16.38 & 16.30 & 16.39 & 16.85 & 16.87 \\ \hline
+17.1 & 17.0 & 16.5 & 16.4 & 16.3 &
+16.4 & 16.3 & 16.4 & 16.9 & 16.9 \\ \hline
 
 \textbf{Rosso} &
-18.34 & 18.46 & 16.27 & 16.38 & 16.81 &
-16.83 & 19.47 & 19.40 & 18.44 & 18.57 \\ \hline
+18.3 & 18.5 & 16.3 & 16.4 & 16.8 &
+16.8 & 19.5 & 19.4 & 18.4 & 18.6 \\ \hline
 
 \textbf{Giallo} &
-20.47 & 20.42 & 20.28 & 20.46 & 20.16 &
-20.30 & 20.61 & 20.66 & 20.66 & 20.50 \\ \hline
+20.5 & 20.4 & 20.3 & 20.5 & 20.1 &
+20.3 & 20.6 & 20.7 & 20.7 & 20.5 \\ \hline
 
 \end{tabular}
 \caption{Dati grezzi ($A_T$) per i tre colori.}
@@ -848,37 +898,241 @@ Si riportano di seguito i dati così ottenuti, con media e stdev della media.
 \hline
 \textbf{Colore} & \textbf{Media [$A_T$] [mm]} & \textbf{Stdev  media [mm]} \\ \hline
 
-Blu    & 16.68 & 0.16 \\ \hline
-Rosso  & 17.25 & 0.48 \\ \hline
+Blu    & 16.7 & 0.2 \\ \hline
+Rosso  & 17.3 & 0.5 \\ \hline
 Giallo & 20.36 & 0.06 \\ \hline
 
 \end{tabular}
 \end{table}
 
 
-\subsection{Aberrazione cromatica}
-L'aberrazione cromatica ($A_C$) si stima come segue: $$ A_C = f_{rosso} - f_{blu} $$ Che diventa, togliendo i contributi sistematici: $$ A_C = {P_{ rosso}} - {P_{blu}} $$ 
+\subsection{Aberrazione cromatica e N° Abbe}
+L'aberrazione cromatica ($A_C$) si stima come segue: $$ A_C = f_{rosso} - f_{blu} $$ Che, dato che i contributi sistematici sono gli stessi, diventa: $$ A_C = {\bar{P}_{ rosso}} - {\bar{P}_{blu}} $$ 
 Dove con $P_{rosso/blu}$ si intendono le distanze dall'inizio della guida fino all'inizio del carrellino della lente n.13. 
 Si costruisce il campione derivato, distinguendo il caso marginale da quello parassiale, ottenendo le stime in tabella. 
 
-\begin{table}[h!]
+\begin{table}[H]
 \centering
 \renewcommand{\arraystretch}{1.3}
 \setlength{\tabcolsep}{12pt}
 
 \begin{tabular}{|c|c|c|}
 \hline
- & \textbf{Media [$A_C$] [mm]} & \textbf{Stdev media [mm]}  \\ \hline
- \textbf{Marginali} & 0.9 & 0.1 \\ \hline
- \textbf{Parassiali} & 0.9 & 0.1 \\ \hline
+ \textbf{Media [$A_C$] [mm]} & \textbf{Stdev media [mm]}  \\ \hline
+  0.9 & 0.1 \\ \hline
 \end{tabular}
 \caption{Media e stdev della media campionaria di $A_C$}
 
 \end{table}
 
+Oltrettutto, sapendo la distanza da inizio guida fino alla $ccd$, si possono facilmente stimare i fuochi della lente, al variare del colore. Dato che si è in approssimazione parassiale, la formula è la seguente. $$ \bar{f} = l_{ccd} \, - \, \overline{P}_{p} + s_c/2 + d_{ccd}$$
+
+Si ipotizza che il evrtice posteriore della Lente N. 13 sia al centro del carrellino, non avendo a disposizione la misura diretta di questa grandezza.
+Si utilizza la formula di propagazione dell'errore per ricavare l'incertezza, utilizzando i dati in Tabella 16. Di seguito le stime. 
+\\
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{10pt}
+
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Colore} 
+& \textbf{$\mathbf{f}$ [mm]} 
+& \textbf{$\mathbf{\sigma_{f}}$ [mm]} \\
+\hline
+
+Blu   
+& 66.3
+& 0.1 \\
+\hline
+
+Rosso
+& 65.4 
+& 0.1 \\
+\hline
+
+Ambra 
+& 65.3
+& 0.1 \\
+\hline
+
+\end{tabular}
+\caption{{Focali della Lente N° 13 e relative incertezze}}
+
+\end{table}
+
+Si stima così il numero di Abbe ($V$) come : $$ V \approx \frac{f_{Ambra}}{A_c}$$
+
+\begin{table}[H]
+\centering
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{12pt}
+
+\begin{tabular}{|c|c|c|}
+\hline
+ \textbf{Media [$V$] [mm]} & \textbf{Stdev media [mm]}  \\ \hline
+  73 & 8 \\ \hline
+\end{tabular}
+\caption{Media e stdev della media campionaria di $A_C$}
+
+\end{table}
+
+Si ricava l'incertezza con la formula di propagazione dell'errore. 
+
+
+
+
 
 
 \section{Conclusioni}
+
+
+ \begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \multicolumn{3}{|c|}{\textbf{Lente con bollino bianco}} \\
+        \hline
+        \textbf{Colore} & \textbf{$\mathbf{f}$ [mm]} & \textbf{ $\mathbf{\sigma_f}$ [mm] }\\
+        \hline
+        Blu    & 147.9 & 0.2 \\
+        \hline
+        Rosso  & 149.6 & 0.2 \\
+        \hline
+        Ambra & 150.3 & 0.4 \\
+        \hline
+    \end{tabular}
+    \caption{Stime finali delle focali al variare dei colori per la prima lente}
+\end{table}
+
+Per il colore blu, dove si sono usati più metodi, si è deciso di fornire la stima ricavata con Bessel perché eventuali errori sistematici non sondati (seppure piccoli) non influenzano il risultato finale. 
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+        \hline
+        \multicolumn{7}{|c|}{\textbf{Lente N° 13 - Analisi completa}} \\
+        \hline
+        \phantom{0.0} &  \multicolumn{2}{|c|}{\textbf{Stima fuochi}} & \multicolumn{4}{|c|}{\textbf{Aberrazione sferica}}\\
+        \hline
+        \textbf{Colore} & \textbf{$f$ [mm]} & $\sigma_{f}$ [mm] &  \textbf{$A_{s,l}$ [mm]} & $\sigma_{A_{s.l}} [mm]$ &\textbf{$A_{s,t}$ [mm]} & $\sigma_{A_{s.t}} [mm]$\\
+        \hline
+        Blu    & 66.3 & 0.1 & 5.9 & 0.1 & 16.7 & 0.2\\
+        \hline
+        Rosso  & 65.4 & 0.1 & 5.9 & 0.1 & 17.3 & 0.5\\
+        \hline
+        Ambra & 65.3 & 0.1 & 5.8 & 0.2 & 20.36 & 0.06\\
+        \hline
+    \end{tabular}
+    \caption{Analisi completa per la Lente N° 13.}
+    \label{tab:lente13_completa}
+\end{table}
+
+Si riportano di seguito le stime di Abbe e dell'aberrazione cromatica.
+
+\begin{table}[H]
+\begin{minipage}{0.05\textwidth}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\centering
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Media [$V$]} & \textbf{Stdev media} \\ \hline
+73 & 8 \\ \hline
+\end{tabular}
+\caption{Numero di Abbe medio}
+\label{tab:abbe_mean}
+\end{minipage}
+\hspace{0cm}
+\begin{minipage}{0.45\textwidth}
+\centering
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{12pt}
+\begin{tabular}{|c|c|}
+\hline
+\textbf{Media [$A_C$] [mm]} & \textbf{Stdev media [mm]} \\ \hline
+0.9 & 0.1 \\ \hline
+\end{tabular}
+\caption{Aberrazione cromatica media}
+\label{tab:ac_mean}
+\end{minipage}
+\end{table}
+
+\section{Appendice}
+
+\subsection{Formule}
+\vspace{0.2cm}
+
+\begin{itemize}
+
+\item \textbf{Media aritmetica}
+\begin{equation}
+    \bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i
+\end{equation}
+
+\item \textbf{Deviazione standard della singola misura} 
+    \begin{equation}
+        \sigma = \sqrt{\frac{1}{N-1} \sum_{i=1}^{N} (x_i - \bar{x})^2}
+    \end{equation} 
+    
+\item \textbf{Deviazione standard della media per misure statisticamente indipendenti}
+\begin{equation}
+    \sigma_{\bar{x}} = \frac{\sigma}{\sqrt{N}}
+\end{equation}
+
+\item \textbf{Compatibilità gaussiana} 
+\begin{equation}
+\lambda = \frac{|x - y|}{\sqrt{\sigma_x^2 + \sigma_y^2}}
+\end{equation}
+
+\item \textbf{Interpolazione lineare \( y = a + bx \) con:}
+\begin{itemize}
+    \item \( x_i \) statisticamente indipendenti tra loro, \( y_i \) statisticamente indipendenti tra loro;
+    \item \( \sigma_{x} \ll \sigma_{y} \);
+    \item \( \sigma_i \neq \sigma_y \).
+\end{itemize}
+
+\begin{equation}
+a = \frac{1}{\Delta} \left[ \left( \sum_{i} \frac{x_i^2}{\sigma_i^2} \right) \cdot \left( \sum_{i} \frac{y_i}{\sigma_i^2} \right) - \left( \sum_{i} \frac{x_i}{\sigma_i^2} \right) \cdot \left( \sum_{i} \frac{x_i y_i}{\sigma_i^2} \right) \right]
+\end{equation}
+
+\begin{equation}
+b = \frac{1}{\Delta} \left[ \left( \sum_{i} \frac{1}{\sigma_i^2} \right) \cdot \left( \sum_{i} \frac{x_i y_i}{\sigma_i^2} \right) - \left( \sum_{i} \frac{x_i}{\sigma_i^2} \right) \cdot \left( \sum_{i} \frac{y_i}{\sigma_i^2} \right) \right]
+\end{equation}
+
+\begin{equation}
+\begin{cases}
+\sigma_a^2 = \dfrac{1}{\Delta} \sum_{i} \dfrac{x_i^2}{\sigma_i^2}, \\
+\sigma_b^2 = \dfrac{1}{\Delta} \sum_{i} \dfrac{1}{\sigma_i^2}.
+\end{cases}
+\end{equation}
+
+\begin{equation}
+\Delta = \left( \sum_{i} \frac{1}{\sigma_i^2} \right) \cdot \left( \sum_{i} \frac{x_i^2}{\sigma_i^2} \right) - \left( \sum_{i} \frac{x_i}{\sigma_i^2} \right)^2
+\end{equation}
+
+\begin{equation}
+\sigma_{y,\text{post}} = \sqrt{\frac{\sum_{i=1}^N (y_i - a - bx_i)^2}{N - 2}}
+\end{equation}
+
+\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
