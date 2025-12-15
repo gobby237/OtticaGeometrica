@@ -420,11 +420,12 @@ e il valore ottimale di $A$ è stato determinato minimizzando tale funzione tram
 L'incertezza si è considerata essere la semidispersione dei valori di ${A}$ associati a $S_{A,min}+1$. 
 Di seguito il grafico con i dati corretti da errore sistematico e la funzione ottenuta minimizzando A. 
 
+\begin{comment}
 \begin{figure}[H]
 \centering
 \begin{minipage}{0.55\textwidth}
     \centering
-    \includegraphics[width=\linewidth]{Interpolazione.png}
+    \includegraphics[width=\linewidth]{InterpolazioneWide.png}
     \caption{Interpolazione dati con parametro ideale ${A}$}
     \label{fig:interpolazione}
 \end{minipage}
@@ -439,11 +440,19 @@ Di seguito il grafico con i dati corretti da errore sistematico e la funzione ot
     \parbox{0.8\linewidth}{\centering\small Formula interpolazione }
 \end{minipage}
 \end{figure}
+\end{comment}
+
+\begin{figure} [H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{InterpolazioneWide.png}
+    \caption{Grafico risultante dalla minimizzazione di S$_a$}
+    \label{fig:placeholder}
+\end{figure}
 
 
 \subsubsection{Confronto focali - Filtro blu} 
 \vspace{1cm}
-\begin{table}[h]
+\begin{table}[H]
     \centering
     \renewcommand{\arraystretch}{1.3}
     \setlength{\tabcolsep}{8pt}
